@@ -9,8 +9,11 @@ RUN apk --no-cache --virtual build-dependencies add \
     python \
     make \
     g++ \
+    tini \
     && npm install \
     && npm cache clean --force \
     && apk del build-dependencies
+RUN apk add --no-cache tini
 COPY . .
+ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["node", "app.js"]
