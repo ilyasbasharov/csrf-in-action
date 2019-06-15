@@ -5,6 +5,11 @@ ENV NODE_ENV=production \
   JWT_SECRET=shared-secret
 WORKDIR /app
 COPY package.json package.json ./
-RUN npm install && npm cache clean --force
+RUN apk --no-cache --virtual build-dependencies add \
+    python \
+    make \
+    g++ \
+    && npm install \
+    && npm cache clean --force \
+    && apk del build-dependencies
 CMD ["node", "app.js"]
-
