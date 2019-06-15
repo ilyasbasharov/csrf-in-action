@@ -12,4 +12,5 @@ RUN apk --no-cache --virtual build-dependencies add \
     && npm install \
     && npm cache clean --force \
     && apk del build-dependencies
+COPY . .
 CMD ["node", "app.js"]
